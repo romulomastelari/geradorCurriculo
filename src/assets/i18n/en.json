@@ -1,0 +1,194 @@
+{
+  "APP": {
+    "TITLE": "Resume Builder"
+  },
+  "HEADER": {
+    "HOME": "Home",
+    "DASHBOARD": "Dashboard",
+    "PROFILE": "Profile"
+  },
+  "FOOTER": {
+    "COPYRIGHT": "Resume Builder. All rights reserved.",
+    "HOME": "Home",
+    "DASHBOARD": "Dashboard",
+    "PROFILE": "Profile",
+    "MADE_WITH": "Made with"
+  },
+  "THEME": {
+    "TITLE": "Theme",
+    "LIGHT": "Light",
+    "DARK": "Dark",
+    "BLACK": "Black"
+  },
+  "HOME": {
+    "TITLE": "Your Perfect Resume",
+    "SUBTITLE": "Create professional resumes in minutes with our intuitive builder",
+    "GET_STARTED": "Get Started",
+    "SIGN_UP": "Sign Up",
+    "FEATURES": {
+      "TITLE": "Exclusive Features",
+      "TEMPLATES": {
+        "TITLE": "Professional Templates",
+        "DESCRIPTION": "Choose from dozens of modern and professional templates"
+      }
+    },
+    "PRICING": {
+      "TITLE": "Plans",
+      "FREE": {
+        "TITLE": "Free",
+        "PRICE": "$0",
+        "FEATURE1": "1 resume",
+        "FEATURE2": "Basic templates",
+        "FEATURE3": "PDF export",
+        "CTA": "Start Free"
+      },
+      "PREMIUM": {
+        "TITLE": "Premium",
+        "PRICE": "$9.99/month",
+        "FEATURE1": "Unlimited resumes",
+        "FEATURE2": "All templates",
+        "FEATURE3": "Export in multiple formats",
+        "FEATURE4": "Application tracking",
+        "CTA": "Subscribe Premium"
+      }
+    }
+  },
+  "PROFILE": {
+    "TITLE": "My Profile",
+    "PREMIUM_ACCOUNT": "Premium Account",
+    "FREE_ACCOUNT": "Free Account",
+    "UPGRADE": "Upgrade to Premium",
+    "USERNAME": "Username",
+    "USERNAME_PLACEHOLDER": "Enter your username",
+    "EMAIL": "Email",
+    "EMAIL_PLACEHOLDER": "Enter your email",
+    "EMAIL_INVALID": "Invalid email format",
+    "FIRST_NAME": "First Name",
+    "FIRST_NAME_PLACEHOLDER": "Enter your first name",
+    "LAST_NAME": "Last Name",
+    "LAST_NAME_PLACEHOLDER": "Enter your last name",
+    "SAVE": "Save changes",
+    "LOGOUT": "Logout",
+    "UPDATE_SUCCESS": "Profile updated successfully!"
+  },
+  "LOGIN": {
+    "TITLE": "Login",
+    "USERNAME": "Username",
+    "USERNAME_PLACEHOLDER": "Enter your username",
+    "USERNAME_REQUIRED": "Username is required",
+    "PASSWORD": "Password",
+    "PASSWORD_PLACEHOLDER": "Enter your password",
+    "PASSWORD_REQUIRED": "Password is required",
+    "SUBMIT": "Login",
+    "NO_ACCOUNT": "Don't have an account?",
+    "SIGNUP": "Sign up"
+  },
+  "SIGNUP": {
+    "TITLE": "Sign Up",
+    "USERNAME": "Username",
+    "USERNAME_PLACEHOLDER": "Choose a username",
+    "USERNAME_REQUIRED": "Username is required",
+    "EMAIL": "Email",
+    "EMAIL_PLACEHOLDER": "Enter your email",
+    "EMAIL_REQUIRED": "Email is required",
+    "EMAIL_INVALID": "Invalid email format",
+    "PASSWORD": "Password",
+    "PASSWORD_PLACEHOLDER": "Choose a password",
+    "PASSWORD_REQUIRED": "Password is required",
+    "PASSWORD_MIN_LENGTH": "Password must be at least 6 characters",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm your password",
+    "CONFIRM_PASSWORD_REQUIRED": "Please confirm your password",
+    "PASSWORDS_DONT_MATCH": "Passwords don't match",
+    "SUBMIT": "Sign Up",
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+    "LOGIN": "Login"
+  },
+  "DASHBOARD": {
+    "TITLE": "My Resumes",
+    "CREATE_RESUME": "Create Resume",
+    "NO_RESUMES": "No Resumes Yet",
+    "NO_RESUMES_MESSAGE": "You haven't created any resumes yet. Start by creating your first resume.",
+    "CREATE_FIRST_RESUME": "Create My First Resume",
+    "EDIT": "Edit",
+    "PREVIEW": "Preview",
+    "DELETE": "Delete",
+    "UPGRADE": {
+      "TITLE": "Upgrade to Premium",
+      "MESSAGE": "Unlock unlimited resumes and premium templates by upgrading to Premium.",
+      "BUTTON": "Upgrade Now"
+    }
+  },
+  "EDITOR": {
+    "BACK": "Back to Dashboard",
+    "EDIT_RESUME": "Edit Resume",
+    "CREATE_RESUME": "Create Resume",
+    "PREVIEW": "Preview",
+    "SAVE": "Save",
+    "BASIC_INFO": "Basic Information",
+    "RESUME_TITLE": "Resume Title",
+    "TITLE_REQUIRED": "Resume title is required",
+    "TEMPLATE": "Template",
+    "TEMPLATE_1": "Professional",
+    "TEMPLATE_2": "Creative",
+    "TEMPLATE_3": "Modern",
+    "PERSONAL_INFO": "Personal Information",
+    "FIRST_NAME": "First Name",
+    "FIRST_NAME_REQUIRED": "First name is required",
+    "LAST_NAME": "Last Name",
+    "LAST_NAME_REQUIRED": "Last name is required",
+    "EMAIL": "Email",
+    "EMAIL_REQUIRED": "Email is required",
+    "EMAIL_INVALID": "Invalid email format",
+    "PHONE": "Phone",
+    "JOB_TITLE": "Job Title",
+    "SUMMARY": "Professional Summary",
+    "SAVE_SUCCESS": "Resume saved successfully!"
+  },
+  "PREVIEW": {
+    "BACK": "Back to Dashboard",
+    "TITLE": "Resume Preview",
+    "EDIT": "Edit",
+    "PRINT": "Print",
+    "DOWNLOAD": "Download PDF",
+    "SUMMARY": "Summary",
+    "LOADING": "Loading resume..."
+  },
+  "CHECKOUT": {
+    "TITLE": "Choose Your Plan",
+    "FREE_PLAN": {
+      "TITLE": "Free",
+      "PRICE": "$0",
+      "FEATURE1": "1 resume",
+      "FEATURE2": "Basic templates",
+      "FEATURE3": "PDF export"
+    },
+    "PREMIUM_PLAN": {
+      "TITLE": "Premium",
+      "PRICE": "$9.99/month",
+      "FEATURE1": "Unlimited resumes",
+      "FEATURE2": "All templates",
+      "FEATURE3": "Export in multiple formats",
+      "FEATURE4": "Application tracking",
+      "FEATURE5": "Priority support"
+    },
+    "CURRENT_PLAN": "Current Plan",
+    "SELECT_PLAN": "Select Plan",
+    "PAYMENT_DETAILS": "Payment Details",
+    "PAYMENT_INFO": "Your payment will be processed securely. You can cancel anytime.",
+    "PAY_NOW": "Pay Now",
+    "BACK_TO_DASHBOARD": "Back to Dashboard",
+    "SUCCESS": {
+      "TITLE": "Payment Successful!",
+      "MESSAGE": "Thank you for upgrading to Premium! You now have access to all premium features.",
+      "GO_TO_DASHBOARD": "Go to Dashboard",
+      "CREATE_RESUME": "Create New Resume"
+    },
+    "CANCEL": {
+      "TITLE": "Payment Cancelled",
+      "MESSAGE": "Your payment was cancelled. You can try again whenever you're ready.",
+      "TRY_AGAIN": "Try Again",
+      "BACK_TO_DASHBOARD": "Back to Dashboard"
+    }
+  }
+}

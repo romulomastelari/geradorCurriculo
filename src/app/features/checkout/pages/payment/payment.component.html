@@ -1,0 +1,208 @@
+<div class="payment-container">
+  <h1>{{ 'CHECKOUT.TITLE' | translate }}</h1>
+
+  <div class="plan-selection">
+    <div class="plan free" [class.selected]="selectedPlan === 'free'">
+      <div class="plan-header">
+        <h2>{{ 'CHECKOUT.FREE_PLAN.TITLE' | translate }}</h2>
+        <div class="price">{{ 'CHECKOUT.FREE_PLAN.PRICE' | translate }}</div>
+      </div>
+      <ul class="features">
+        <li>{{ 'CHECKOUT.FREE_PLAN.FEATURE1' | translate }}</li>
+        <li>{{ 'CHECKOUT.FREE_PLAN.FEATURE2' | translate }}</li>
+        <li>{{ 'CHECKOUT.FREE_PLAN.FEATURE3' | translate }}</li>
+      </ul>
+      <button class="btn-select" (click)="selectPlan('free')" [disabled]="selectedPlan === 'free'">
+        <fa-icon [icon]="selectedPlan === 'free' ? faCheck : faTimes"></fa-icon>
+        {{ selectedPlan === 'free' ? ('CHECKOUT.CURRENT_PLAN' | translate) : ('CHECKOUT.SELECT_PLAN' | translate) }}
+      </button>
+    </div>
+
+    <div class="plan premium" [class.selected]="selectedPlan === 'premium'">
+      <div class="plan-header">
+        <h2>
+          <fa-icon [icon]="faCrown"></fa-icon>
+          {{ 'CHECKOUT.PREMIUM_PLAN.TITLE' | translate }}
+        </h2>
+        <div class="price">{{ 'CHECKOUT.PREMIUM_PLAN.PRICE' | translate }}</div>
+      </div>
+      <ul class="features">
+        <li>{{ 'CHECKOUT.PREMIUM_PLAN.FEATURE1' | translate }}</li>
+        <li>{{ 'CHECKOUT.PREMIUM_PLAN.FEATURE2' | translate }}</li>
+        <li>{{ 'CHECKOUT.PREMIUM_PLAN.FEATURE3' | translate }}</li>
+        <li>{{ 'CHECKOUT.PREMIUM_PLAN.FEATURE4' | translate }}</li>
+        <li>{{ 'CHECKOUT.PREMIUM_PLAN.FEATURE5' | translate }}</li>
+      </ul>
+      <button class="btn-select" (click)="selectPlan('premium')" [disabled]="selectedPlan === 'premium'">
+        <fa-icon [icon]="selectedPlan === 'premium' ? faCheck : faCreditCard"></fa-icon>
+        {{ selectedPlan === 'premium' ? ('CHECKOUT.CURRENT_PLAN' | translate) : ('CHECKOUT.SELECT_PLAN' | translate) }}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedPlan === 'premium'" class="payment-section">
+    <h2>{{ 'CHECKOUT.PAYMENT_DETAILS' | translate }}</h2>
+
+    <div class="payment-tabs">
+      <button
+        type="button"
+        class="tab-button"
+        [class.active]="paymentMethod === 'card'"
+        (click)="setPaymentMethod('card')">
+        <fa-icon [icon]="faCreditCard"></fa-icon>
+        {{ 'CHECKOUT.PAYMENT_METHOD.CARD' | translate }}
+      </button>
+      <button
+        type="button"
+        class="tab-button"
+        [class.active]="paymentMethod === 'boleto'"
+        (click)="setPaymentMethod('boleto')">
+        <fa-icon [icon]="faBarcode"></fa-icon>
+        {{ 'CHECKOUT.PAYMENT_METHOD.BOLETO' | translate }}
+      </button>
+      <button
+        type="button"
+        class="tab-button"
+        [class.active]="paymentMethod === 'pix'"
+        (click)="setPaymentMethod('pix')">
+        <fa-icon [icon]="faQrcode"></fa-icon>
+        {{ 'CHECKOUT.PAYMENT_METHOD.PIX' | translate }}
+      </button>
+    </div>
+
+    <!-- Credit Card Form -->
+    <form *ngIf="paymentMethod === 'card'" [formGroup]="cardForm" (ngSubmit)="processPayment()" class="payment-form">
+      <div class="form-group">
+        <label for="cardName">{{ 'CHECKOUT.CARD.NAME' | translate }}</label>
+        <input
+          type="text"
+          id="cardName"
+          formControlName="cardName"
+          [placeholder]="'CHECKOUT.CARD.NAME_PLACEHOLDER' | translate">
+        <div *ngIf="cardForm.get('cardName')?.invalid && cardForm.get('cardName')?.touched" class="error-message">
+          {{ 'CHECKOUT.CARD.NAME_REQUIRED' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cardNumber">{{ 'CHECKOUT.CARD.NUMBER' | translate }}</label>
+        <input
+          type="text"
+          id="cardNumber"
+          formControlName="cardNumber"
+          [placeholder]="'CHECKOUT.CARD.NUMBER_PLACEHOLDER' | translate"
+          maxlength="19">
+        <div *ngIf="cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched" class="error-message">
+          <span *ngIf="cardForm.get('cardNumber')?.errors?.['required']">
+            {{ 'CHECKOUT.CARD.NUMBER_REQUIRED' | translate }}
+          </span>
+          <span *ngIf="cardForm.get('cardNumber')?.errors?.['pattern']">
+            {{ 'CHECKOUT.CARD.NUMBER_INVALID' | translate }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="expiryDate">{{ 'CHECKOUT.CARD.EXPIRY' | translate }}</label>
+          <input
+            type="text"
+            id="expiryDate"
+            formControlName="expiryDate"
+            [placeholder]="'CHECKOUT.CARD.EXPIRY_PLACEHOLDER' | translate"
+            maxlength="5">
+          <div *ngIf="cardForm.get('expiryDate')?.invalid && cardForm.get('expiryDate')?.touched" class="error-message">
+            <span *ngIf="cardForm.get('expiryDate')?.errors?.['required']">
+              {{ 'CHECKOUT.CARD.EXPIRY_REQUIRED' | translate }}
+            </span>
+            <span *ngIf="cardForm.get('expiryDate')?.errors?.['pattern']">
+              {{ 'CHECKOUT.CARD.EXPIRY_INVALID' | translate }}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cvv">{{ 'CHECKOUT.CARD.CVV' | translate }}</label>
+          <input
+            type="text"
+            id="cvv"
+            formControlName="cvv"
+            [placeholder]="'CHECKOUT.CARD.CVV_PLACEHOLDER' | translate"
+            maxlength="4">
+          <div *ngIf="cardForm.get('cvv')?.invalid && cardForm.get('cvv')?.touched" class="error-message">
+            <span *ngIf="cardForm.get('cvv')?.errors?.['required']">
+              {{ 'CHECKOUT.CARD.CVV_REQUIRED' | translate }}
+            </span>
+            <span *ngIf="cardForm.get('cvv')?.errors?.['pattern']">
+              {{ 'CHECKOUT.CARD.CVV_INVALID' | translate }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Boleto Form -->
+    <div *ngIf="paymentMethod === 'boleto'" class="payment-form">
+      <div class="boleto-info">
+        <p>{{ 'CHECKOUT.BOLETO.INFO' | translate }}</p>
+        <div class="boleto-image">
+          <img src="assets/images/boleto-example.png" alt="Boleto Example">
+        </div>
+        <p class="boleto-note">{{ 'CHECKOUT.BOLETO.NOTE' | translate }}</p>
+      </div>
+    </div>
+
+    <!-- PIX Form -->
+    <div *ngIf="paymentMethod === 'pix'" class="payment-form">
+      <div class="pix-info">
+        <p>{{ 'CHECKOUT.PIX.INFO' | translate }}</p>
+        <div class="pix-qrcode">
+          <img src="assets/images/pix-qrcode.png" alt="PIX QR Code">
+        </div>
+        <div class="pix-code">
+          <p>{{ 'CHECKOUT.PIX.CODE' | translate }}</p>
+          <div class="code-container">
+            <code>00020126580014br.gov.bcb.pix0136a629532e-7693-4846-b028-f142082d7b0752040000530398654041.005802BR5925GERADOR DE CURRICULO SA6009SAO PAULO62070503***6304E2CA</code>
+            <button type="button" class="btn-copy" (click)="copyPixCode()">
+              <fa-icon [icon]="faCopy"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-summary">
+      <h3>{{ 'CHECKOUT.ORDER_SUMMARY' | translate }}</h3>
+      <div class="summary-item">
+        <span>{{ 'CHECKOUT.PREMIUM_PLAN.TITLE' | translate }}</span>
+        <span>{{ 'CHECKOUT.PREMIUM_PLAN.PRICE' | translate }}</span>
+      </div>
+      <div class="summary-item discount" *ngIf="discount > 0">
+        <span>{{ 'CHECKOUT.DISCOUNT' | translate }}</span>
+        <span>-{{ discount | currency }}</span>
+      </div>
+      <div class="summary-item total">
+        <span>{{ 'CHECKOUT.TOTAL' | translate }}</span>
+        <span>{{ total | currency }}</span>
+      </div>
+    </div>
+
+    <div class="payment-actions">
+      <button type="button" class="btn-back" (click)="goBack()">
+        {{ 'CHECKOUT.BACK' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn-pay"
+        (click)="processPayment()"
+        [disabled]="paymentMethod === 'card' && cardForm.invalid">
+        <fa-icon [icon]="faCreditCard"></fa-icon>
+        {{ 'CHECKOUT.PAY_NOW' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a routerLink="/dashboard">{{ 'CHECKOUT.BACK_TO_DASHBOARD' | translate }}</a>
+  </div>
+</div>

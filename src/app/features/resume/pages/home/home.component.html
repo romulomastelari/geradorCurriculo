@@ -1,0 +1,63 @@
+<div class="home-container">
+  <header class="hero">
+    <div class="hero-content">
+      <h1>{{ 'HOME.TITLE' | translate }}</h1>
+      <p class="hero-subtitle">{{ 'HOME.SUBTITLE' | translate }}</p>
+      <div class="cta-buttons">
+        <a routerLink="/account/login" class="btn btn-primary">
+          {{ 'HOME.GET_STARTED' | translate }}
+          <fa-icon [icon]="faArrowRight"></fa-icon>
+        </a>
+        <a routerLink="/account/signup" class="btn btn-outline">
+          {{ 'HOME.SIGN_UP' | translate }}
+        </a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="assets/images/resume-preview.jpg" alt="Resume Preview" />
+    </div>
+  </header>
+
+  <section class="features">
+    <h2>{{ 'HOME.FEATURES.TITLE' | translate }}</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <fa-icon [icon]="faFileAlt" class="feature-icon"></fa-icon>
+        <h3>{{ 'HOME.FEATURES.TEMPLATES.TITLE' | translate }}</h3>
+        <p>{{ 'HOME.FEATURES.TEMPLATES.DESCRIPTION' | translate }}</p>
+      </div>
+      <!-- More feature cards would go here -->
+    </div>
+  </section>
+
+  <section class="pricing">
+    <h2>{{ 'HOME.PRICING.TITLE' | translate }}</h2>
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <h3>{{ 'HOME.PRICING.FREE.TITLE' | translate }}</h3>
+        <div class="price">{{ 'HOME.PRICING.FREE.PRICE' | translate }}</div>
+        <ul>
+          <li>{{ 'HOME.PRICING.FREE.FEATURE1' | translate }}</li>
+          <li>{{ 'HOME.PRICING.FREE.FEATURE2' | translate }}</li>
+          <li>{{ 'HOME.PRICING.FREE.FEATURE3' | translate }}</li>
+        </ul>
+        <a routerLink="/account/signup" class="btn btn-outline">
+          {{ 'HOME.PRICING.FREE.CTA' | translate }}
+        </a>
+      </div>
+      <div class="pricing-card premium">
+        <h3>{{ 'HOME.PRICING.PREMIUM.TITLE' | translate }}</h3>
+        <div class="price">{{ 'HOME.PRICING.PREMIUM.PRICE' | translate }}</div>
+        <ul>
+          <li>{{ 'HOME.PRICING.PREMIUM.FEATURE1' | translate }}</li>
+          <li>{{ 'HOME.PRICING.PREMIUM.FEATURE2' | translate }}</li>
+          <li>{{ 'HOME.PRICING.PREMIUM.FEATURE3' | translate }}</li>
+          <li>{{ 'HOME.PRICING.PREMIUM.FEATURE4' | translate }}</li>
+        </ul>
+        <a routerLink="/checkout" class="btn btn-primary">
+          {{ 'HOME.PRICING.PREMIUM.CTA' | translate }}
+        </a>
+      </div>
+    </div>
+  </section>
+</div>

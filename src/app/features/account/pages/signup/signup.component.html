@@ -1,0 +1,169 @@
+<div class="signup-container">
+  <h1>{{ 'SIGNUP.TITLE' | translate }}</h1>
+
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="firstName">
+          <fa-icon [icon]="faUser"></fa-icon>
+          {{ 'SIGNUP.FIRST_NAME' | translate }}
+        </label>
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          [placeholder]="'SIGNUP.FIRST_NAME_PLACEHOLDER' | translate"
+        >
+        <div *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched" class="error-message">
+          {{ 'SIGNUP.FIRST_NAME_REQUIRED' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">
+          <fa-icon [icon]="faUser"></fa-icon>
+          {{ 'SIGNUP.LAST_NAME' | translate }}
+        </label>
+        <input
+          type="text"
+          id="lastName"
+          formControlName="lastName"
+          [placeholder]="'SIGNUP.LAST_NAME_PLACEHOLDER' | translate"
+        >
+        <div *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched" class="error-message">
+          {{ 'SIGNUP.LAST_NAME_REQUIRED' | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="username">
+        <fa-icon [icon]="faUser"></fa-icon>
+        {{ 'SIGNUP.USERNAME' | translate }}
+      </label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        [placeholder]="'SIGNUP.USERNAME_PLACEHOLDER' | translate"
+      >
+      <div *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched" class="error-message">
+        {{ 'SIGNUP.USERNAME_REQUIRED' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">
+        <fa-icon [icon]="faEnvelope"></fa-icon>
+        {{ 'SIGNUP.EMAIL' | translate }}
+      </label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        [placeholder]="'SIGNUP.EMAIL_PLACEHOLDER' | translate"
+      >
+      <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="error-message">
+        <span *ngIf="signupForm.get('email')?.errors?.['required']">
+          {{ 'SIGNUP.EMAIL_REQUIRED' | translate }}
+        </span>
+        <span *ngIf="signupForm.get('email')?.errors?.['email']">
+          {{ 'SIGNUP.EMAIL_INVALID' | translate }}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">
+        <fa-icon [icon]="faLock"></fa-icon>
+        {{ 'SIGNUP.PASSWORD' | translate }}
+      </label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        [placeholder]="'SIGNUP.PASSWORD_PLACEHOLDER' | translate"
+      >
+      <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="error-message">
+        <span *ngIf="signupForm.get('password')?.errors?.['required']">
+          {{ 'SIGNUP.PASSWORD_REQUIRED' | translate }}
+        </span>
+        <span *ngIf="signupForm.get('password')?.errors?.['minlength']">
+          {{ 'SIGNUP.PASSWORD_MIN_LENGTH' | translate }}
+        </span>
+      </div>
+      <div class="password-strength" *ngIf="signupForm.get('password')?.value">
+        <div class="strength-meter">
+          <div class="strength-bar" [ngClass]="passwordStrength"></div>
+        </div>
+        <div class="strength-text" [ngClass]="passwordStrength">
+          {{ 'SIGNUP.PASSWORD_STRENGTH.' + passwordStrength.toUpperCase() | translate }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">
+        <fa-icon [icon]="faLock"></fa-icon>
+        {{ 'SIGNUP.CONFIRM_PASSWORD' | translate }}
+      </label>
+      <input
+        type="password"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        [placeholder]="'SIGNUP.CONFIRM_PASSWORD_PLACEHOLDER' | translate"
+      >
+      <div *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched" class="error-message">
+        {{ 'SIGNUP.CONFIRM_PASSWORD_REQUIRED' | translate }}
+      </div>
+      <div *ngIf="signupForm.errors?.['passwordMismatch'] && signupForm.get('confirmPassword')?.touched" class="error-message">
+        {{ 'SIGNUP.PASSWORDS_DONT_MATCH' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <div class="checkbox-container">
+        <input
+          type="checkbox"
+          id="termsAccepted"
+          formControlName="termsAccepted"
+        >
+        <label for="termsAccepted" class="checkbox-label">
+          {{ 'SIGNUP.ACCEPT_TERMS' | translate }}
+          <a href="/terms" target="_blank">{{ 'SIGNUP.TERMS_AND_CONDITIONS' | translate }}</a>
+        </label>
+      </div>
+      <div *ngIf="signupForm.get('termsAccepted')?.invalid && signupForm.get('termsAccepted')?.touched" class="error-message">
+        {{ 'SIGNUP.TERMS_REQUIRED' | translate }}
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="signupForm.invalid" class="btn-primary">
+      <fa-icon [icon]="faUserPlus"></fa-icon>
+      {{ 'SIGNUP.SUBMIT' | translate }}
+    </button>
+  </form>
+
+  <div class="social-signup">
+    <p>{{ 'SIGNUP.OR_SIGN_UP_WITH' | translate }}</p>
+    <div class="social-buttons">
+      <button type="button" class="btn-social btn-google" (click)="signupWithGoogle()">
+        <fa-icon [icon]="faGoogle"></fa-icon>
+        Google
+      </button>
+      <button type="button" class="btn-social btn-facebook" (click)="signupWithFacebook()">
+        <fa-icon [icon]="faFacebook"></fa-icon>
+        Facebook
+      </button>
+    </div>
+  </div>
+
+  <div class="login-link">
+    {{ 'SIGNUP.ALREADY_HAVE_ACCOUNT' | translate }}
+    <a routerLink="/account/login">{{ 'SIGNUP.LOGIN' | translate }}</a>
+  </div>
+
+  <div *ngIf="signupSuccess" class="success-message">
+    {{ 'SIGNUP.SIGNUP_SUCCESS' | translate }}
+  </div>
+</div>

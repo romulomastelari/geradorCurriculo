@@ -1,0 +1,17 @@
+<footer class="app-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="copyright">
+        &copy; {{ currentYear }} {{ 'FOOTER.COPYRIGHT' | translate }}
+      </div>
+      <div class="footer-links">
+        <a routerLink="/home">{{ 'FOOTER.HOME' | translate }}</a>
+        <a routerLink="/dashboard">{{ 'FOOTER.DASHBOARD' | translate }}</a>
+        <a routerLink="/account/profile">{{ 'FOOTER.PROFILE' | translate }}</a>
+      </div>
+      <div class="made-with">
+        {{ 'FOOTER.MADE_WITH' | translate }} <fa-icon [icon]="faHeart" class="heart-icon"></fa-icon>
+      </div>
+    </div>
+  </div>
+</footer>

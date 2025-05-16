@@ -1,0 +1,293 @@
+<div class="profile-container">
+  <h1>{{ 'PROFILE.TITLE' | translate }}</h1>
+
+  <div class="profile-header">
+    <div class="profile-avatar">
+      <img [src]="user()?.photoUrl || 'assets/images/default-avatar.png'" alt="Profile Photo">
+      <button type="button" class="change-photo-btn">
+        {{ 'PROFILE.CHANGE_PHOTO' | translate }}
+      </button>
+    </div>
+
+    <div class="subscription-status" [class.premium]="user()?.isPremium">
+      <fa-icon [icon]="faCrown"></fa-icon>
+      <span *ngIf="user()?.isPremium">{{ 'PROFILE.PREMIUM_ACCOUNT' | translate }}</span>
+      <span *ngIf="!user()?.isPremium">{{ 'PROFILE.FREE_ACCOUNT' | translate }}</span>
+
+      <a *ngIf="!user()?.isPremium" routerLink="/checkout" class="upgrade-link">
+        {{ 'PROFILE.UPGRADE' | translate }}
+      </a>
+    </div>
+  </div>
+
+  <div class="profile-tabs">
+    <button
+      type="button"
+      class="tab-button"
+      [class.active]="activeTab === 'personal'"
+      (click)="setActiveTab('personal')">
+      {{ 'PROFILE.PERSONAL_INFO' | translate }}
+    </button>
+    <button
+      type="button"
+      class="tab-button"
+      [class.active]="activeTab === 'password'"
+      (click)="setActiveTab('password')">
+      {{ 'PROFILE.CHANGE_PASSWORD' | translate }}
+    </button>
+    <button
+      type="button"
+      class="tab-button"
+      [class.active]="activeTab === 'orders'"
+      (click)="setActiveTab('orders')">
+      {{ 'PROFILE.ORDER_HISTORY' | translate }}
+    </button>
+    <button
+      type="button"
+      class="tab-button"
+      [class.active]="activeTab === 'settings'"
+      (click)="setActiveTab('settings')">
+      {{ 'PROFILE.SETTINGS' | translate }}
+    </button>
+  </div>
+
+  <!-- Personal Information Tab -->
+  <div class="tab-content" *ngIf="activeTab === 'personal'">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">
+          <fa-icon [icon]="faUser"></fa-icon>
+          {{ 'PROFILE.USERNAME' | translate }}
+        </label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          [placeholder]="'PROFILE.USERNAME_PLACEHOLDER' | translate"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="email">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+          {{ 'PROFILE.EMAIL' | translate }}
+        </label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          [placeholder]="'PROFILE.EMAIL_PLACEHOLDER' | translate"
+        >
+        <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="error-message">
+          <span *ngIf="profileForm.get('email')?.errors?.['email']">
+            {{ 'PROFILE.EMAIL_INVALID' | translate }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">
+            {{ 'PROFILE.FIRST_NAME' | translate }}
+          </label>
+          <input
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+            [placeholder]="'PROFILE.FIRST_NAME_PLACEHOLDER' | translate"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">
+            {{ 'PROFILE.LAST_NAME' | translate }}
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+            [placeholder]="'PROFILE.LAST_NAME_PLACEHOLDER' | translate"
+          >
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="profileForm.invalid || !profileForm.dirty" class="btn-primary">
+          <fa-icon [icon]="faSave"></fa-icon>
+          {{ 'PROFILE.SAVE' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Change Password Tab -->
+  <div class="tab-content" *ngIf="activeTab === 'password'">
+    <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+      <div class="form-group">
+        <label for="currentPassword">
+          {{ 'PROFILE.CURRENT_PASSWORD' | translate }}
+        </label>
+        <input
+          type="password"
+          id="currentPassword"
+          formControlName="currentPassword"
+          [placeholder]="'PROFILE.CURRENT_PASSWORD_PLACEHOLDER' | translate"
+        >
+        <div *ngIf="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched" class="error-message">
+          {{ 'PROFILE.CURRENT_PASSWORD_REQUIRED' | translate }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="newPassword">
+          {{ 'PROFILE.NEW_PASSWORD' | translate }}
+        </label>
+        <input
+          type="password"
+          id="newPassword"
+          formControlName="newPassword"
+          [placeholder]="'PROFILE.NEW_PASSWORD_PLACEHOLDER' | translate"
+        >
+        <div *ngIf="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched" class="error-message">
+          <span *ngIf="passwordForm.get('newPassword')?.errors?.['required']">
+            {{ 'PROFILE.NEW_PASSWORD_REQUIRED' | translate }}
+          </span>
+          <span *ngIf="passwordForm.get('newPassword')?.errors?.['minlength']">
+            {{ 'PROFILE.PASSWORD_TOO_SHORT' | translate }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">
+          {{ 'PROFILE.CONFIRM_PASSWORD' | translate }}
+        </label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          [placeholder]="'PROFILE.CONFIRM_PASSWORD_PLACEHOLDER' | translate"
+        >
+        <div *ngIf="passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched" class="error-message">
+          <span *ngIf="passwordForm.get('confirmPassword')?.errors?.['required']">
+            {{ 'PROFILE.CONFIRM_PASSWORD_REQUIRED' | translate }}
+          </span>
+          <span *ngIf="passwordForm.errors?.['passwordMismatch']">
+            {{ 'PROFILE.PASSWORD_MISMATCH' | translate }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="passwordForm.invalid" class="btn-primary">
+          {{ 'PROFILE.UPDATE_PASSWORD' | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Order History Tab -->
+  <div class="tab-content" *ngIf="activeTab === 'orders'">
+    <div class="orders-list" *ngIf="orders.length > 0; else noOrders">
+      <div class="order-item" *ngFor="let order of orders">
+        <div class="order-header">
+          <div class="order-id">
+            <strong>{{ 'PROFILE.ORDER_ID' | translate }}:</strong> #{{ order.id }}
+          </div>
+          <div class="order-date">{{ order.date | date:'mediumDate' }}</div>
+          <div class="order-status" [class]="order.status.toLowerCase()">
+            {{ 'PROFILE.STATUS.' + order.status.toUpperCase() | translate }}
+          </div>
+        </div>
+        <div class="order-details">
+          <div class="order-product">{{ order.productName }}</div>
+          <div class="order-amount">{{ order.amount | currency }}</div>
+        </div>
+        <div class="order-actions">
+          <button type="button" class="btn-link">
+            {{ 'PROFILE.VIEW_DETAILS' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <ng-template #noOrders>
+      <div class="no-orders">
+        <p>{{ 'PROFILE.NO_ORDERS' | translate }}</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Settings Tab -->
+  <div class="tab-content" *ngIf="activeTab === 'settings'">
+    <div class="settings-section">
+      <h3>{{ 'PROFILE.NOTIFICATION_SETTINGS' | translate }}</h3>
+      <div class="setting-item">
+        <div class="setting-label">
+          {{ 'PROFILE.EMAIL_NOTIFICATIONS' | translate }}
+        </div>
+        <div class="setting-control">
+          <label class="toggle">
+            <input type="checkbox" [checked]="settings.emailNotifications" (change)="toggleSetting('emailNotifications')">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="setting-item">
+        <div class="setting-label">
+          {{ 'PROFILE.MARKETING_EMAILS' | translate }}
+        </div>
+        <div class="setting-control">
+          <label class="toggle">
+            <input type="checkbox" [checked]="settings.marketingEmails" (change)="toggleSetting('marketingEmails')">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h3>{{ 'PROFILE.ACCOUNT_SETTINGS' | translate }}</h3>
+      <div class="setting-item">
+        <div class="setting-label">
+          {{ 'PROFILE.LANGUAGE' | translate }}
+        </div>
+        <div class="setting-control">
+          <select (change)="changeLanguage($event)">
+            <option value="en" [selected]="settings.language === 'en'">English</option>
+            <option value="pt" [selected]="settings.language === 'pt'">Português</option>
+          </select>
+        </div>
+      </div>
+      <div class="setting-item">
+        <div class="setting-label">
+          {{ 'PROFILE.THEME' | translate }}
+        </div>
+        <div class="setting-control">
+          <select (change)="changeTheme($event)">
+            <option value="light" [selected]="settings.theme === 'light'">{{ 'PROFILE.LIGHT_THEME' | translate }}</option>
+            <option value="dark" [selected]="settings.theme === 'dark'">{{ 'PROFILE.DARK_THEME' | translate }}</option>
+            <option value="system" [selected]="settings.theme === 'system'">{{ 'PROFILE.SYSTEM_THEME' | translate }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="danger-zone">
+      <h3>{{ 'PROFILE.DANGER_ZONE' | translate }}</h3>
+      <button type="button" class="btn-danger" (click)="deleteAccount()">
+        {{ 'PROFILE.DELETE_ACCOUNT' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div class="logout-section">
+    <button type="button" class="btn-secondary" (click)="logout()">
+      <fa-icon [icon]="faSignOutAlt"></fa-icon>
+      {{ 'PROFILE.LOGOUT' | translate }}
+    </button>
+  </div>
+
+  <div *ngIf="updateSuccess" class="success-message">
+    {{ 'PROFILE.UPDATE_SUCCESS' | translate }}
+  </div>
+</div>

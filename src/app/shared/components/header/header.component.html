@@ -1,0 +1,32 @@
+<header class="app-header">
+  <div class="header-container">
+    <div class="logo">
+      <a routerLink="/">{{ 'APP.TITLE' | translate }}</a>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li>
+          <a routerLink="/home" routerLinkActive="active">
+            <fa-icon [icon]="faHome"></fa-icon>
+            {{ 'HEADER.HOME' | translate }}
+          </a>
+        </li>
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="active">
+            <fa-icon [icon]="faFileAlt"></fa-icon>
+            {{ 'HEADER.DASHBOARD' | translate }}
+          </a>
+        </li>
+        <li>
+          <a routerLink="/account/profile" routerLinkActive="active">
+            <fa-icon [icon]="faUser"></fa-icon>
+            {{ 'HEADER.PROFILE' | translate }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="theme-switcher-container">
+      <app-theme-switcher></app-theme-switcher>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,14 @@
+<div class="theme-switcher">
+  <div class="theme-switcher-label">{{ 'THEME.TITLE' | translate }}</div>
+  <div class="theme-options">
+    <button
+      *ngFor="let theme of themes"
+      class="theme-option"
+      [class.active]="themeService.currentTheme === theme.value"
+      (click)="setTheme(theme.value)"
+      [attr.aria-label]="theme.label | translate">
+      <fa-icon [icon]="theme.icon"></fa-icon>
+      <span class="theme-label">{{ theme.label | translate }}</span>
+    </button>
+  </div>
+</div>

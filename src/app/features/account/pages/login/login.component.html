@@ -1,0 +1,70 @@
+<div class="login-container">
+  <h1>{{ 'LOGIN.TITLE' | translate }}</h1>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">
+        <fa-icon [icon]="faUser"></fa-icon>
+        {{ 'LOGIN.USERNAME' | translate }}
+      </label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        [placeholder]="'LOGIN.USERNAME_PLACEHOLDER' | translate"
+      >
+      <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="error-message">
+        <span *ngIf="loginForm.get('username')?.errors?.['required']">
+          {{ 'LOGIN.USERNAME_REQUIRED' | translate }}
+        </span>
+        <span *ngIf="loginForm.get('username')?.errors?.['email']">
+          {{ 'LOGIN.INVALID_EMAIL' | translate }}
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">
+        <fa-icon [icon]="faLock"></fa-icon>
+        {{ 'LOGIN.PASSWORD' | translate }}
+      </label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        [placeholder]="'LOGIN.PASSWORD_PLACEHOLDER' | translate"
+      >
+      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+        {{ 'LOGIN.PASSWORD_REQUIRED' | translate }}
+      </div>
+    </div>
+
+    <div class="forgot-password">
+      <a routerLink="/account/reset-password">{{ 'LOGIN.FORGOT_PASSWORD' | translate }}</a>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid" class="btn-primary">
+      <fa-icon [icon]="faSignInAlt"></fa-icon>
+      {{ 'LOGIN.SUBMIT' | translate }}
+    </button>
+  </form>
+
+  <div class="social-login">
+    <p>{{ 'LOGIN.OR_SIGN_IN_WITH' | translate }}</p>
+    <div class="social-buttons">
+      <button type="button" class="btn-social btn-google" (click)="loginWithGoogle()">
+        <fa-icon [icon]="faGoogle"></fa-icon>
+        Google
+      </button>
+      <button type="button" class="btn-social btn-facebook" (click)="loginWithFacebook()">
+        <fa-icon [icon]="faFacebook"></fa-icon>
+        Facebook
+      </button>
+    </div>
+  </div>
+
+  <div class="signup-link">
+    {{ 'LOGIN.NO_ACCOUNT' | translate }}
+    <a routerLink="/account/signup">{{ 'LOGIN.SIGNUP' | translate }}</a>
+  </div>
+</div>

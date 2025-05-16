@@ -1,0 +1,147 @@
+<div class="editor-container">
+  <div class="editor-header">
+    <button class="btn-back" routerLink="/dashboard">
+      <fa-icon [icon]="faArrowLeft"></fa-icon>
+      {{ 'EDITOR.BACK' | translate }}
+    </button>
+
+    <h1>{{ isEditMode ? ('EDITOR.EDIT_RESUME' | translate) : ('EDITOR.CREATE_RESUME' | translate) }}</h1>
+
+    <div class="editor-actions">
+      <button class="btn-preview" [disabled]="!resumeForm.valid" (click)="previewResume()">
+        <fa-icon [icon]="faEye"></fa-icon>
+        {{ 'EDITOR.PREVIEW' | translate }}
+      </button>
+
+      <button class="btn-save" [disabled]="!resumeForm.valid || !resumeForm.dirty" (click)="saveResume()">
+        <fa-icon [icon]="faSave"></fa-icon>
+        {{ 'EDITOR.SAVE' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Progress indicator -->
+  <div class="progress-container">
+    <div class="progress-label">
+      {{ 'EDITOR.COMPLETION' | translate }}: {{ completionPercentage }}%
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="completionPercentage"></div>
+    </div>
+  </div>
+
+  <form [formGroup]="resumeForm" class="resume-form">
+    <!-- Basic Info Section -->
+    <div class="form-section card">
+      <div class="section-header" (click)="toggleSection('basicInfo')">
+        <h2>{{ 'EDITOR.BASIC_INFO' | translate }}</h2>
+        <fa-icon [icon]="expandedSections.basicInfo ? faChevronUp : faChevronDown"></fa-icon>
+      </div>
+
+      <div class="section-content" [class.expanded]="expandedSections.basicInfo">
+        <div class="form-group">
+          <label for="title">{{ 'EDITOR.RESUME_TITLE' | translate }}</label>
+          <input type="text" id="title" formControlName="title" placeholder="{{ 'EDITOR.RESUME_TITLE_PLACEHOLDER' | translate }}">
+          <div *ngIf="resumeForm.get('title')?.invalid && resumeForm.get('title')?.touched" class="error-message">
+            {{ 'EDITOR.TITLE_REQUIRED' | translate }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="templateId">{{ 'EDITOR.TEMPLATE' | translate }}</label>
+          <select id="templateId" formControlName="templateId">
+            <option value="template1">{{ 'EDITOR.TEMPLATE_1' | translate }}</option>
+            <option value="template2">{{ 'EDITOR.TEMPLATE_2' | translate }}</option>
+            <option value="template3">{{ 'EDITOR.TEMPLATE_3' | translate }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div formGroupName="content">
+      <!-- Personal Info Section -->
+      <div class="form-section card">
+        <div class="section-header" (click)="toggleSection('personalInfo')">
+          <h2>
+            <fa-icon [icon]="faUser"></fa-icon>
+            {{ 'EDITOR.PERSONAL_INFO' | translate }}
+          </h2>
+          <fa-icon [icon]="expandedSections.personalInfo ? faChevronUp : faChevronDown"></fa-icon>
+        </div>
+
+        <div class="section-content" [class.expanded]="expandedSections.personalInfo" formGroupName="personalInfo">
+          <!-- Photo upload -->
+          <div class="photo-upload-container">
+            <div class="photo-preview" [class.has-photo]="photoPreviewUrl">
+              <img *ngIf="photoPreviewUrl" [src]="photoPreviewUrl" alt="Profile photo">
+              <div *ngIf="!photoPreviewUrl" class="photo-placeholder">
+                <fa-icon [icon]="faUser"></fa-icon>
+              </div>
+            </div>
+            <div class="photo-upload-controls">
+              <label for="photo-upload" class="btn-upload">
+                {{ 'EDITOR.UPLOAD_PHOTO' | translate }}
+              </label>
+              <input
+                type="file"
+                id="photo-upload"
+                accept="image/*"
+                (change)="onPhotoSelected($event)"
+                style="display: none;">
+            </div>
+          </div>
+
+          <!-- Name fields -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">{{ 'EDITOR.FIRST_NAME' | translate }}</label>
+              <input type="text" id="firstName" formControlName="firstName" placeholder="{{ 'EDITOR.FIRST_NAME_PLACEHOLDER' | translate }}">
+              <div *ngIf="personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched" class="error-message">
+                {{ 'EDITOR.FIRST_NAME_REQUIRED' | translate }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">{{ 'EDITOR.LAST_NAME' | translate }}</label>
+              <input type="text" id="lastName" formControlName="lastName" placeholder="{{ 'EDITOR.LAST_NAME_PLACEHOLDER' | translate }}">
+              <div *ngIf="personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched" class="error-message">
+                {{ 'EDITOR.LAST_NAME_REQUIRED' | translate }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact information -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">
+                <fa-icon [icon]="faEnvelope"></fa-icon>
+                {{ 'EDITOR.EMAIL' | translate }}
+              </label>
+              <input type="email" id="email" formControlName="email" placeholder="{{ 'EDITOR.EMAIL_PLACEHOLDER' | translate }}">
+              <div *ngIf="personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched" class="error-message">
+                <span *ngIf="personalInfoForm.get('email')?.errors?.['required']">
+                  {{ 'EDITOR.EMAIL_REQUIRED' | translate }}
+                </span>
+                <span *ngIf="personalInfoForm.get('email')?.errors?.['email']">
+                  {{ 'EDITOR.EMAIL_INVALID' | translate }}
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">
+                <fa-icon [icon]="faPhone"></fa-icon>
+                {{ 'EDITOR.PHONE' | translate }}
+              </label>
+              <input type="tel" id="phone" formControlName="phone" placeholder="{{ 'EDITOR.PHONE_PLACEHOLDER' | translate }}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div *ngIf="saveSuccess" class="success-message">
+    {{ 'EDITOR.SAVE_SUCCESS' | translate }}
+  </div>
+</div>
